@@ -33,3 +33,20 @@ Intersection with Uniref50: 273568
 Total uniprot ids after adding Uniref50: 7718246
 IDs have been saved to selected_uniprot_ids.txt
 ```
+
+### Step 3: Generate a fasta file for the selected uniprot IDs and run mmseqs2 to generate clusters
+
+Run the following python script to generate a fasta file.
+
+```bash
+(py311) ramith@taurus:~/instructpro_data_preprocessing$ python 2.\ make_fasta.py 
+7680607 written from uniprot2seq.json
+37639 written from uniref50.jsonl
+0
+```
+
+Then run this to generate the clusters using mmseqs2: keep an eye out for the clusterRes_cluster.tsv which maps each protein sequence ID to a cluster ID. In our run, this resulted in 22,594 clusters [(mmseqs output)](https://static.ramith.io/scientificLLM/mmseqs2_attemp2.txt).
+
+```bash
+mmseqs easy-cluster output_sequences.fasta clusterRes tmp --min-seq-id 0.3 -c 0.8 --cov-mode 1
+```
