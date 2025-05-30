@@ -57,7 +57,7 @@ else:
 # Check if all keys in uniprot2seq are also in uniprot2text
 diff_ligand_text = protein2ligand_id.difference(uniprot2text)
 if diff_ligand_text:
-    print(f"Elements in seq not in text: {len(diff_ligand_text)}")
+    print(f"Elements in ligand but not in text: {len(diff_ligand_text)}")
 else:
     print("All elements of seq appear in text")
 
