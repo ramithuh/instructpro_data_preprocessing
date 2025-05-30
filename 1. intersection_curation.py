@@ -68,3 +68,29 @@ if result:
     print(f"Elements in ligand and text but not in seq: {len(result)}")
 else:
     print("All elements of ligand appear in text")
+    
+# Bring in more sequences from uniref50
+uniref50 = set(stream_jsonl_keys(f"{data_path}/data/uniref50.jsonl"))
+print("Uniref50 keys:", len(uniref50))
+
+intersection2 = protein2ligand_id.intersection(uniref50, uniprot2text)
+print("Biggest intersection after adding Uniref50:", len(intersection2))
+
+print("Regular Intersection:", len(ligand_seq_text))
+print("Intersection with Uniref50:", len(intersection2))
+
+## let's calculate the net value of these uniprot ids
+total_uniprot_ids = intersection2.union(ligand_seq_text)
+
+print("Total uniprot ids after adding Uniref50:", len(total_uniprot_ids))
+
+# Specify the file path
+file_path = 'selected_uniprot_ids.txt'
+
+# Open the file in write mode
+with open(file_path, 'w') as file:
+    # Write each ID to the file, each on a new line
+    for id in total_uniprot_ids:
+        file.write(f"{id}\n")
+
+print(f"IDs have been saved to {file_path}")
