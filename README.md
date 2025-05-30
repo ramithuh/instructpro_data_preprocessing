@@ -24,7 +24,7 @@ Ligand, Sequence, and Text intersection: 7680607
 Sequence and Text intersection: 33617397
 Ligand and Text intersection: 7997705
 All elements of seq appear in text
-Elements in seq not in text: 4237952
+Elements in ligand but not in text: 4237952
 Elements in ligand and text but not in seq: 317098
 Uniref50 keys: 64363428
 Biggest intersection after adding Uniref50: 273568
