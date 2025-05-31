@@ -71,3 +71,16 @@ The script performs the following key operations:
     It also generates an HTML file, `cluster_histogram.html`, visualizing the distribution of sequence counts per cluster.
 
 (script uses a fixed random seed (`42`) to ensure these splits are reproducible)
+
+### Step 4: Designate Specific Ligands for Validation and Test Sets
+
+This step uses the script `4. split_ligands.py` to define distinct sets of ligands that will be considered "unseen" during training. This is crucial for evaluating the model's ability to generalize to novel chemical compounds.
+
+The script performs a refined selection process:
+
+1.  **Initial Ligand Consideration:** It analyzes the distribution of all ligands associated with the 7.7 million selected proteins.
+2.  **Integration with Protein Clusters:** It loads the previously defined validation and test protein cluster assignments (`val_clusters.txt`, `test_clusters.txt`) and identifies the actual ligands present within the proteins belonging to these clusters.
+3.  **Refinement and Disambiguation:** An initial sampling of ligands is cross-referenced with the ligands found in the validation and test protein clusters. Any ligands that would ambiguously appear in both the refined validation and test ligand sets are removed to ensure strict separation.
+4.  **Outputs:** The script saves the final, distinct lists of ligand IDs into two files:
+    * `ligands_val.txt` (containing 9 unique ligands)
+    * `ligands_test.txt` (containing 5 unique ligands)
