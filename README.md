@@ -60,14 +60,14 @@ The script performs the following key operations:
 
 2.  **Stratified Sampling for Validation/Test:** To ensure a representative mix of cluster sizes in the valid and test sets, it employs a stratified sampling strategy. Clusters are binned by size (e.g., 1-500 sequences, 501-1000 sequences, etc.), and a predefined number of clusters are randomly sampled from each bin. For instance, 40 clusters are sampled from the 1-500 sequence count range, 20 from 501-1000, 10 from 1001-2500, and 2 from clusters with over 2500 sequences.
 
-3.  **Assigns to Validation and Test:** This total pool of 72 sampled clusters is then divided approximately equally (36 clusters each) to form the validation and test sets. This ensures each of these sets receives representation from the different cluster size bins (e.g., ~20 from the 1-500 bin, ~10 from the 501-1000 bin, etc., per set).
+3.  **Assigns to Validation and Test:** This total pool of 72 sampled clusters is then divided equally (36 clusters each) to form the validation and test sets. This ensures each of these sets receives representation from the different cluster size bins (e.g., ~20 from the 1-500 bin, ~10 from the 501-1000 bin, etc., per set).
 
 4.  **Assigns to Training:** All clusters not selected for either validation or test are assigned to the training set.
 
 5.  **Outputs:** The script saves the lists of cluster IDs for each set into three separate files:
-    * `data/processed/train_clusters.txt`
-    * `data/processed/val_clusters.txt`
-    * `data/processed/test_clusters.txt`
+    * `train_clusters.txt`
+    * `val_clusters.txt`
+    * `test_clusters.txt`
     It also generates an HTML file, `cluster_histogram.html`, visualizing the distribution of sequence counts per cluster.
 
 (script uses a fixed random seed (`42`) to ensure these splits are reproducible)
