@@ -50,6 +50,8 @@ def filter_jsonl_by_allow_list(input_jsonl: str, output_jsonl: str, allow_list_p
     lines_kept = 0
     total_lines = 0
 
+    line_numbers = []
+    
     try:
         with open(input_jsonl, 'r') as infile, open(output_jsonl, 'w') as outfile:
             for line in infile:
@@ -62,14 +64,21 @@ def filter_jsonl_by_allow_list(input_jsonl: str, output_jsonl: str, allow_list_p
                     # Check if the (protein, ligand) pair is in our allowed set
                     if (protein_id, ligand_id) in allowed_set:
                         # If it is, write the original line to the new file
+                        line_numbers.append(total_lines)
                         outfile.write(line)
                         lines_kept += 1
+                
                 except (json.JSONDecodeError, KeyError):
-                    # Skip malformed lines
+                    print(f"Skipping malformed line {total_lines}: {line.strip()}")
                     continue
     except FileNotFoundError:
         print(f"Error: Input file not found at {input_jsonl}")
         return
+    
+    ## save the line numbers of kept lines to a separate file
+    with open(output_jsonl + '.line_numbers.txt', 'w') as line_file:
+        for line_number in line_numbers:
+            line_file.write(f"{line_number}\n")
         
     print("\n--- Filtering Complete ---")
     print(f"Total lines read: {total_lines:,}")
